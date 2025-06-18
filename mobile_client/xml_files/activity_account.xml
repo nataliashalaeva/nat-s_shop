@@ -1,0 +1,127 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AccountActivity"
+    android:background="#455A64">
+
+    <!-- Логотип -->
+    <ImageView
+        android:id="@+id/app_logo"
+        android:layout_width="220dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/logot" />
+
+    <!-- Фото профиля -->
+    <ImageView
+        android:id="@+id/profileImageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/profile_icon"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/app_logo"
+        android:layout_marginLeft="20dp" />
+
+    <!-- Поле для имени -->
+    <TextView
+        android:id="@+id/nameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Имя"
+        android:layout_below="@+id/profileImageView"
+        android:textSize="18sp"
+        android:textColor="#FFF"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"/>
+
+
+    <Button
+        android:id="@+id/btnProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nameLabel"
+        android:text="Профиль"
+        android:layout_margin="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
+        android:textSize="18sp"
+        android:backgroundTint="#1A3D6C"/>
+
+    <Button
+        android:id="@+id/btnOrderHistory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="История заказов"
+        android:layout_below="@id/btnProfile"
+        android:layout_margin="20dp"
+        android:textSize="18sp"
+        android:backgroundTint="#1A3D6C"/>
+
+    <Button
+        android:id="@+id/btnCompanyInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="О компании"
+        android:layout_below="@id/btnOrderHistory"
+        android:layout_margin="20dp"
+        android:textSize="18sp"
+        android:backgroundTint="#1A3D6C"/>
+
+
+
+    <!-- Навигация внизу -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:gravity="center"
+        android:layout_alignParentBottom="true">
+
+        <ImageButton
+            android:id="@+id/btnHome"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7"
+            android:src="@drawable/home"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="16dp"
+            android:contentDescription="Home Button" />
+
+        <ImageButton
+            android:id="@+id/btnFavorite"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7"
+            android:src="@drawable/favorite"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="16dp"
+            android:contentDescription="Favorite Button" />
+
+        <ImageButton
+            android:id="@+id/btnCart"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7"
+            android:src="@drawable/cart"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="16dp"
+            android:contentDescription="Cart Button"/>
+
+        <ImageButton
+            android:id="@+id/btnAccount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7"
+            android:src="@drawable/account"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="16dp"
+            android:contentDescription="Account Button" />
+
+    </LinearLayout>
+
+</RelativeLayout>
