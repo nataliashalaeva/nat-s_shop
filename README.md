@@ -9,14 +9,30 @@
 5. Хранение изображений товаров в Supabase Storage
 6. Дашборд с аналитикой и графиками
 
-Данные входа (по умолчанию)
+Данные входа
 Логин: admin
 Пароль: admin
 
-Используемые технологии
+Используемые технологии:
 
--Backend: Flask (Python)
--Frontend: Jinja2 + HTML/CSS
--База данных: Firebase Realtime Database
--Файлы и изображения: Supabase Storage
--Графики: Plotly Express, Plotly.js
+1. Backend: Flask (Python)
+2. Frontend: Jinja2 + HTML/CSS
+3. База данных: Firebase Realtime Database
+4. Изображения: Supabase Storage
+5. Графики: Plotly Express, Plotly.js
+
+
+Мобильное приложение клиента интернет-магазин.Оно включает:
+
+1. Просмотр товаров
+2. Добавление товаров в корзину и оформление заказа
+3. Добавление товара в избранное
+4. Регистрация и авторизация пользователей
+5. Просмотр истории заказов
+6. Личный профиль с данными пользователя
+
+Используемые технологии:
+
+1. Язык: Java
+2. База данных: Firebase Realtime Database
+3. Изображения: Supabase Storage
