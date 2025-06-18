@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_marginBottom="8dp"
+    android:background="?android:attr/selectableItemBackground">
+
+    <!-- Товары в заказе -->
+    <TextView
+        android:id="@+id/orderInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Информация о заказе"
+        android:textSize="18sp"
+        android:textColor="#FFF"/>
+
+    <!-- Список товаров -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/productsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp" />
+
+    <!-- Статус и сумма заказа -->
+    <TextView
+        android:id="@+id/orderStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Статус заказа: Неизвестно"
+        android:layout_marginLeft="4dp"
+        android:textSize="18sp"
+        android:textColor="#FFF"
+       />
+
+    <TextView
+        android:id="@+id/orderAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Сумма заказа: 0₽"
+        android:layout_marginLeft="4dp"
+        android:textSize="18sp"
+        android:textColor="#FFF"
+         />
+</LinearLayout>

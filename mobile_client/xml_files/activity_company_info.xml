@@ -1,0 +1,171 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AccountActivity"
+    android:background="#455A64">
+
+    <ImageButton
+        android:id="@+id/but"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/exitt"
+        android:contentDescription="Назад" />
+
+    <!-- Логотип -->
+    <ImageView
+        android:id="@+id/app_logo"
+        android:layout_width="220dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/logot" />
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="О компании"
+        android:layout_below="@+id/app_logo"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:textColor="#FFF"/>
+
+    <TextView
+        android:id="@+id/descriptionView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewTitle"
+        android:text="Nat's Shop — это бренд, вдохновлённый ручной работой и уютом. Я создаю уникальные вещи с заботой и вниманием к деталям."
+        android:textColor="#FFF"
+        android:textSize="16sp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"/>
+
+    <TextView
+        android:id="@+id/addressView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Адрес: г. Краснодар, ул. Гагарина, 71"
+        android:layout_below="@id/descriptionView"
+        android:layout_marginTop="12dp"
+        android:textSize="18sp"
+        android:textColor="#FFF"
+        android:layout_marginStart="16dp"/>
+
+    <TextView
+        android:id="@+id/workHoursView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Часы работы: Пн-Пт 9:00 – 18:00"
+        android:layout_below="@id/addressView"
+        android:layout_marginTop="12dp"
+        android:textSize="18sp"
+        android:textColor="#FFF"
+        android:layout_marginStart="16dp"/>
+
+    <TextView
+        android:id="@+id/telegramView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Телеграм: @nataverka"
+        android:layout_below="@id/workHoursView"
+        android:layout_marginTop="12dp"
+        android:textSize="18sp"
+        android:textColor="#FFF"
+        android:layout_marginStart="16dp"/>
+
+    <TextView
+        android:id="@+id/phoneView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Телефон: +7 (989) 267-48-44"
+        android:layout_below="@id/telegramView"
+        android:layout_marginTop="12dp"
+        android:textSize="18sp"
+        android:textColor="#FFF"
+        android:layout_marginStart="16dp"/>
+
+    <TextView
+        android:id="@+id/emailView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Почта: shalaeva.stepanida@gmail.com"
+        android:layout_below="@id/phoneView"
+        android:layout_marginTop="12dp"
+        android:textSize="18sp"
+        android:textColor="#FFF"
+        android:layout_marginStart="16dp"/>
+
+    <Button
+        android:id="@+id/feedbackButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/emailView"
+        android:layout_marginTop="24dp"
+        android:text="Оставить отзыв"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:backgroundTint="#1A3D6C"
+       />
+
+
+    <!-- Навигация внизу -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:gravity="center"
+        android:layout_alignParentBottom="true">
+
+        <ImageButton
+            android:id="@+id/btnHome"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7"
+            android:src="@drawable/home"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="16dp"
+            android:contentDescription="Home Button" />
+
+        <ImageButton
+            android:id="@+id/btnFavorite"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7"
+            android:src="@drawable/favorite"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="16dp"
+            android:contentDescription="Favorite Button" />
+
+        <ImageButton
+            android:id="@+id/btnCart"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7"
+            android:src="@drawable/cart"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="16dp"
+            android:contentDescription="Cart Button"/>
+
+        <ImageButton
+            android:id="@+id/btnAccount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7"
+            android:src="@drawable/account"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="16dp"
+            android:contentDescription="Account Button" />
+
+    </LinearLayout>
+
+</RelativeLayout>

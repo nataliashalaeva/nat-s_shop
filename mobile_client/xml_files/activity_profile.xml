@@ -1,0 +1,224 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AccountActivity"
+    android:background="#455A64">
+
+    <!-- Кнопка назад -->
+    <ImageButton
+        android:id="@+id/button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/exitt"
+        android:contentDescription="Назад" />
+
+    <!-- Логотип -->
+    <ImageView
+        android:id="@+id/app_logo"
+        android:layout_width="220dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/logot" />
+
+    <!-- Фото профиля -->
+    <ImageView
+        android:id="@+id/profileImageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/profile_icon"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/app_logo"
+        android:layout_marginLeft="20dp" />
+
+    <!-- Поле для имени -->
+    <TextView
+        android:id="@+id/nameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Имя:"
+        android:layout_below="@+id/profileImageView"
+        android:textSize="18sp"
+        android:layout_marginTop="16dp"
+        android:textColor="#000"
+        android:textStyle="bold"
+        android:layout_marginStart="16dp"/>
+
+    <EditText
+        android:id="@+id/nameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/nameLabel"
+        android:layout_marginTop="8dp"
+        android:padding="16dp"
+        android:hint="Введите имя"
+        android:textColor="#FFF"
+        android:textSize="16sp"
+        android:textStyle="bold"/>
+
+    <!-- Поле для номера телефона -->
+    <TextView
+        android:id="@+id/phoneLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Номер телефона:"
+        android:textSize="18sp"
+        android:layout_below="@id/nameEditText"
+        android:layout_marginTop="16dp"
+        android:textColor="#000"
+        android:textStyle="bold"
+        android:layout_marginStart="16dp"/>
+
+    <EditText
+        android:id="@+id/phoneEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/phoneLabel"
+        android:layout_marginTop="8dp"
+        android:inputType="phone"
+        android:padding="16dp"
+        android:hint="Введите номер телефона"
+        android:textColor="#FFF"
+        android:textSize="16sp"
+        android:textStyle="bold"/>
+
+    <!-- Поле для адреса доставки -->
+    <TextView
+        android:id="@+id/addressLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Адрес для доставки:"
+        android:textSize="18sp"
+        android:layout_below="@id/phoneEditText"
+        android:layout_marginTop="16dp"
+        android:textColor="#000"
+        android:textStyle="bold"
+        android:layout_marginStart="16dp"/>
+
+    <EditText
+        android:id="@+id/addressEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/addressLabel"
+        android:layout_marginTop="8dp"
+        android:padding="16dp"
+        android:hint="Введите адрес для доставки"
+        android:textColor="#FFF"
+        android:textSize="16sp"
+        android:textStyle="bold"/>
+
+    <!-- Поле для телеграмма -->
+    <TextView
+        android:id="@+id/telegramLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Телеграмм для связи:"
+        android:textSize="18sp"
+        android:layout_below="@id/addressEditText"
+        android:layout_marginTop="16dp"
+        android:textColor="#000"
+        android:textStyle="bold"
+        android:layout_marginStart="16dp"/>
+
+    <EditText
+        android:id="@+id/telegramEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/telegramLabel"
+        android:layout_marginTop="8dp"
+        android:padding="16dp"
+        android:hint="Введите свой Telegram"
+        android:textColor="#FFF"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        />
+
+    <!-- Кнопка для сохранения данных -->
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="180dp"
+        android:text="Сохранить"
+        android:textSize="18sp"
+        android:backgroundTint="#1A3D6C"
+        />
+
+    <!-- Кнопка для выхода -->
+    <Button
+        android:id="@+id/button_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="80dp"
+        android:text="Выход из аккаунта"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:backgroundTint="#1A3D6C"
+        />
+
+    <!-- Навигация внизу -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:gravity="center"
+        android:layout_alignParentBottom="true">
+
+        <ImageButton
+            android:id="@+id/btnHome"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7"
+            android:src="@drawable/home"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="16dp"
+            android:contentDescription="Home Button" />
+
+        <ImageButton
+            android:id="@+id/btnFavorite"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7"
+            android:src="@drawable/favorite"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="16dp"
+            android:contentDescription="Favorite Button" />
+
+        <ImageButton
+            android:id="@+id/btnCart"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7"
+            android:src="@drawable/cart"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="16dp"
+            android:contentDescription="Cart Button"/>
+
+        <ImageButton
+            android:id="@+id/btnAccount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7"
+            android:src="@drawable/account"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="16dp"
+            android:contentDescription="Account Button" />
+
+    </LinearLayout>
+
+</RelativeLayout>
+
+

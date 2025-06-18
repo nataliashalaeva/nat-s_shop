@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="200dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:layout_margin="8dp">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:padding="4dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/knit1"
+        android:background="@drawable/image_border"/>
+
+
+    <TextView
+        android:id="@+id/nameTextView"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="4dp"
+        android:text="Product Name"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#FFF"/>
+
+    <TextView
+        android:id="@+id/priceTextView"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="4dp"
+        android:text="Product Price"
+        android:textSize="18sp"
+        android:textColor="#FFF"/>
+
+    <!-- Горизонтальный контейнер для двух кнопок -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        android:gravity="center_horizontal"
+        android:weightSum="1">
+
+        <Button
+            android:id="@+id/addToCartButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:text="В корзину"
+            android:backgroundTint="#1A3D6C"/>
+
+        <com.rey.material.widget.ImageButton
+            android:id="@+id/addToFavoritesButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:src="@drawable/ic_heart"
+            android:contentDescription="Добавить в избранное"
+            android:background="?android:selectableItemBackgroundBorderless"
+            android:scaleType="centerInside"
+            android:layout_marginStart="9dp"
+            android:layout_marginTop="11dp"/>
+    </LinearLayout>
+
+</LinearLayout>

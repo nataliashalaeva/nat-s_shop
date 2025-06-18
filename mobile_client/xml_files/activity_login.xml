@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/six"
+    tools:context=".LoginActivity">
+
+    <!-- Кнопка назад -->
+    <ImageButton
+        android:id="@+id/back_Button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/exitt"
+        android:contentDescription="Назад" />
+
+    <ImageView
+        android:id="@+id/app_logo"
+        android:layout_width="340dp"
+        android:layout_height="150dp"
+        android:src="@drawable/logot"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="160dp"
+        />
+
+    <EditText
+        android:id="@+id/emailEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/app_logo"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="25dp"
+        android:background="@drawable/input_design"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:padding="20dp"
+        android:textColor="#FFF"
+        android:textColorHint="#FFF"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/passwordEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/emailEditText"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="25dp"
+        android:background="@drawable/input_design"
+        android:hint="Пароль"
+        android:inputType="textPassword"
+        android:padding="20dp"
+        android:textColor="#FFF"
+        android:textColorHint="#FFF"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+    <LinearLayout
+        android:id="@+id/linear_chek"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/passwordEditText">
+
+
+        <TextView
+            android:id="@+id/forget_password_link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="300dp"
+            android:text="Забыли пароль?"
+            android:textColor="#fff"
+            android:layout_marginTop="15dp"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/login_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linear_chek"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="20dp"
+        android:padding="20dp"
+        android:text="Войти"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:backgroundTint="@color/colorPrimaryDark"/>
+
+</RelativeLayout>
