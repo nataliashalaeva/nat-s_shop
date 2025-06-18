@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Админка Nat's Shop</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+    }
+
+    .navbar {
+      display: flex;
+      background-color: #333;
+      overflow: hidden;
+    }
+
+    .navbar a {
+      flex: 1;
+      color: white;
+      padding: 14px;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .navbar a:hover,
+    .navbar a.active {
+      background-color: #575757;
+    }
+
+    .logout {
+      float: right;
+      margin: 14px;
+    }
+
+    .tab-content {
+      display: none;
+      padding: 20px;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    table {
+      border-collapse: collapse;
+      margin-top: 10px;
+      width: auto;
+    }
+
+    th,
+    td {
+      border: 1px solid #ccc;
+      padding: 6px 10px;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    th {
+      background-color: #f7f7f7;
+    }
+
+    form.inline {
+      display: inline;
+    }
+
+    input,
+    select,
+    button {
+      margin: 5px 10px 5px 0;
+    }
+
+    #orderDetailsModal {
+      display: none;
+      position: fixed;
+      top: 5%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      padding: 20px;
+      border: 1px solid #ccc;
+      z-index: 1001;
+      width: 80%;
+      /* шире */
+      max-height: 90%;
+      /* ограничим высоту */
+      overflow-y: auto;
+      /* добавим скролл, если много товаров */
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    }
+
+    #orderDetailsContent {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: flex-start;
+    }
+
+    #orderDetailsContent .order-item {
+      width: 200px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    #orderDetailsContent .order-item img {
+      width: 100%;
+      max-height: 200px;
+      object-fit: contain;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="navbar">
+    <a class="tab-link active" onclick="showTab(event, 'products')">Товары</a>
+    <a class="tab-link" onclick="showTab(event, 'orders')">Заказы</a>
+    <a class="tab-link" onclick="showTab(event, 'analytics')">Аналитика</a>
+    <a href="{{ url_for('logout') }}" class="logout">Выход</a>
+  </div>
+
+  <!-- Товары -->
+  <div id="products" class="tab-content">
+    <h2>Список товаров</h2>
+    <button onclick="openAddModal()">Добавить товар</button>
+    <table>
+      <thead>
+        <tr>
+          <th>№</th>
+          <th>Название</th>
+          <th>Цена</th>
+          <th>Изображение</th>
+          <th>Действие</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for key, p in products.items() %} {% if p %}
+        <tr>
+          <td>{{ loop.index }}</td>
+          <td>{{ p.name }}</td>
+          <td>{{ p.price }}₽</td>
+          <td>
+            {% if p.imageUrl %}
+            <img src="{{ p.imageUrl }}" alt="image" width="100" height="100" style="object-fit: cover;"> {% endif %}
+          </td>
+          <td>
+            <button onclick="openEditModal('{{ key }}', '{{ p.name }}', '{{ p.price }}', '{{ p.imageUrl }}')">Редактировать</button>
+          </td>
+        </tr>
+        {% endif %} {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div id="addModal" style="display:none; position:fixed; top:20%; left:50%; transform:translate(-50%, -20%); background:white; padding:20px; border:1px solid #ccc; z-index:1000;">
+    <h3>Добавить товар</h3>
+    <form id="addForm" method="post" enctype="multipart/form-data" action="{{ url_for('add_product') }}">
+      <input type="text" name="name" placeholder="Название" required>
+      <br>
+      <input type="text" name="price" placeholder="Цена" required>
+      <br>
+      <input type="file" name="image" required>
+      <br>
+      <button type="submit">Добавить</button>
+      <button type="button" onclick="closeAddModal()">Отмена</button>
+    </form>
+  </div>
+
+  <div id="editModal" style="display:none; position:fixed; top:20%; left:50%; transform:translate(-50%, -20%); background:white; padding:20px; border:1px solid #ccc; z-index:1000;">
+    <h3>Редактировать товар</h3>
+    <form id="editForm" method="post" enctype="multipart/form-data">
+      <input type="text" name="name" id="editName" placeholder="Название">
+      <br>
+      <input type="text" name="price" id="editPrice" placeholder="Цена">
+      <br>
+      <input type="file" name="image">
+      <br>
+      <img id="currentImage" src="" width="100">
+      <br>
+      <button type="submit">Сохранить</button>
+      <button type="button" onclick="closeEditModal()">Отмена</button>
+    </form>
+    <!-- Кнопка для удаления товара -->
+    <form id="deleteForm" action="" method="post" style="display:inline-block;">
+      <button type="submit" style="background:red; color:white;">Удалить товар</button>
+    </form>
+  </div>
+  <div id="modalOverlay" onclick="closeEditModal()" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:black; opacity:0.5; z-index:999;"></div>
+
+  <!-- Заказы -->
+  <div id="orders" class="tab-content">
+    <h2>Список заказов</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID заказа</th>
+          <th>Сумма</th>
+          <th>Статус</th>
+          <th>Детали</th>
+          <th>Обновить</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for key, o in orders.items() %}
+        <form method="post" action="{{ url_for('update_status', order_id=key) }}">
+          <tr>
+            <td>{{ key }}</td>
+            <td>{{ o.totalAmount }}₽</td>
+            <td>
+              <select name="status">
+                <option value="оформлен" {% if o.status=='доставлен' %}selected{% endif %}>Оформлен</option>
+                <option value="оплачено" {% if o.status=='оплачено' %}selected{% endif %}>Оплачено</option>
+                <option value="в работе" {% if o.status=='в работе' %}selected{% endif %}>В работе</option>
+                <option value="в доставке" {% if o.status=='в доставке' %}selected{% endif %}>В доставке</option>
+                <option value="доставлен" {% if o.status=='доставлен' %}selected{% endif %}>Доставлен</option>
+                <option value="закрыт" {% if o.status=='закрыт' %}selected{% endif %}>Закрыт</option>
+              </select>
+
+            </td>
+            <td>
+              <button type="button" class="order-details-btn" data-products='{{ o.productList | tojson | safe }}' data-name="{{ users[o.userId].name if users[o.userId] else 'Не указано' }}" data-phone="{{ users[o.userId].phone if users[o.userId] else 'Не указано' }}" data-telegram="{{ users[o.userId].telegram if users[o.userId] else 'Не указано' }}" data-address="{{ users[o.userId].address if users[o.userId] else 'Не указано' }}" data-timestamp="{{ o.timestamp | datetime if o.timestamp else 'Не указано'  }}" data-closedat="{{ o.closedAt | datetime if o.closedAt else 'Не закрыт' }}">
+                Подробнее
+              </button>
+            </td>
+            <td>
+              <button type="submit">Сохранить</button>
+            </td>
+          </tr>
+        </form>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div id="orderDetailsModal" style="display:none; position:fixed; top:10%; left:50%; transform:translateX(-50%); background:white; padding:20px; border:1px solid #ccc; z-index:1001; max-width:600px;">
+    <h3>Данные заказа</h3>
+    <div id="orderDetailsContent" style="display: flex; flex-wrap: wrap; gap: 15px;"></div>
+    <button onclick="closeOrderDetailsModal()">Закрыть</button>
+  </div>
+  <div id="modalOverlayOrder" onclick="closeOrderDetailsModal()" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:black; opacity:0.5; z-index:1000;"></div>
+  </div>
+
+  <!-- Аналитика -->
+  <div id="analytics" class="tab-content">
+    <h2>📊 Статистика по товарам</h2>
+    <p>Всего товаров: {{ analytics.total_products }}</p>
+    <p>Средняя цена: {{ analytics.average_price }} ₽</p>
+    <p>Самый дорогой товар: {{ analytics.most_expensive }}</p>
+    <p>Самый дешёвый товар: {{ analytics.cheapest }}</p>
+    {% if price_graph %}
+    <div class="graph-section">
+
+      {{ price_graph|safe }}
+    </div>
+    {% endif %} {% if status_graph %}
+    <div class="graph-section">
+      {{ status_graph|safe }}
+    </div>
+    {% endif %} {% if status_graph %}
+    <div class="graph-section">
+      {{ orders_graph | safe }}
+    </div>
+    {% endif %}
+
+    <div>
+      <h3>Сумма продаж по месяцам</h3>
+      <table border="1">
+        <thead>
+          <tr>
+            <th>Месяц</th>
+            <th>Сумма продаж</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in sales_data %}
+          <tr>
+            <td>{{ row['Месяц'] }}</td>
+            <td>{{ row['Сумма продаж'] }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    function showTab(evt, tabId) {
+      const tabs = document.getElementsByClassName("tab-content");
+      for (let tab of tabs) tab.classList.remove("active");
+      const links = document.getElementsByClassName("tab-link");
+      for (let link of links) link.classList.remove("active");
+      document.getElementById(tabId).classList.add("active");
+      evt.currentTarget.classList.add("active");
+    }
+
+    function openEditModal(productId, productName, productPrice, productImageUrl) {
+      document.getElementById('editModal').style.display = 'block';
+      document.getElementById('modalOverlay').style.display = 'block';
+      document.getElementById('editName').value = productName;
+      document.getElementById('editPrice').value = productPrice;
+      document.getElementById('currentImage').src = productImageUrl;
+      var editForm = document.getElementById('editForm');
+      editForm.action = "/update_product/" + productId;
+      var deleteForm = document.getElementById('deleteForm');
+      deleteForm.action = "/delete_product/" + productId;
+    }
+    document.querySelectorAll(".order-details-btn").forEach(button => {
+      button.addEventListener("click", () => {
+        const productList = JSON.parse(button.dataset.products || "[]");
+        const clientName = button.dataset.name || "Не указано";
+        const clientPhone = button.dataset.phone || "Не указано";
+        const clientTelegram = button.dataset.telegram || "Не указано";
+        const clientAddress = button.dataset.address || "Не указано";
+        const timestamp = button.dataset.timestamp || "Не указано";
+        const closedAt = button.dataset.closedat || "Не закрыт";
+        const content = document.getElementById("orderDetailsContent");
+        content.innerHTML = "";
+        const wrapper = document.createElement("div");
+        wrapper.style.width = "100%";
+        const clientInfo = document.createElement("div");
+        clientInfo.innerHTML = `
+            <p><strong>Имя:</strong> ${clientName}</p>
+            <p><strong>Телефон:</strong> ${clientPhone}</p>
+            <p><strong>Telegram:</strong> ${clientTelegram}</p>
+            <p><strong>Адрес:</strong> ${clientAddress}</p>
+            <p><strong>Дата создания:</strong> ${timestamp}</p>
+            <p><strong>Дата закрытия:</strong> ${closedAt}</p>
+            <hr>
+        `;
+        wrapper.appendChild(clientInfo);
+        if (productList.length === 0) {
+          const noProducts = document.createElement("p");
+          noProducts.textContent = "Нет данных о товарах.";
+          wrapper.appendChild(noProducts);
+        } else {
+          const productContainer = document.createElement("div");
+          productContainer.style.display = "flex";
+          productContainer.style.flexWrap = "wrap";
+          productContainer.style.gap = "15px";
+          productList.forEach(product => {
+            const item = document.createElement("div");
+            item.style.border = "1px solid #ccc";
+            item.style.padding = "10px";
+            item.style.width = "200px";
+            let productDetails = `
+                    <img src="${product.imageUrl}" alt="${product.name}" style="width:100%; max-height:200px; object-fit:contain;"><br>
+                    <strong>${product.name}</strong><br>
+                    ${product.price}₽
+                `;
+            item.innerHTML = productDetails;
+            productContainer.appendChild(item);
+          });
+          wrapper.appendChild(productContainer);
+        }
+        content.appendChild(wrapper);
+        document.getElementById("orderDetailsModal").style.display = "block";
+        document.getElementById("modalOverlayOrder").style.display = "block";
+      });
+    });
+
+    function closeEditModal() {
+      document.getElementById('editModal').style.display = 'none';
+      document.getElementById('modalOverlay').style.display = 'none';
+    }
+
+    function closeOrderDetailsModal() {
+      document.getElementById("orderDetailsModal").style.display = "none";
+      document.getElementById("modalOverlayOrder").style.display = "none";
+    }
+
+    function openAddModal() {
+      document.getElementById("addModal").style.display = "block";
+      document.getElementById("modalOverlay").style.display = "block";
+    }
+
+    function closeAddModal() {
+      document.getElementById("addModal").style.display = "none";
+      document.getElementById("modalOverlay").style.display = "none";
+    }
+    window.onload = function() {
+      document.querySelector('.tab-link.active').click();
+    };
+  </script>
+
+</body>
+
+</html>
