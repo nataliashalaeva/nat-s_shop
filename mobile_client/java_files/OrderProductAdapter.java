@@ -4,61 +4,60 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapter.OrderViewHolder> {
+public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapter.OrderProductViewHolder> {
 
     private Context context;
-    private List<Order> orderList;
+    private List<Product> productList;
 
-    public OrderHistoryAdapter(Context context, List<Order> orderList) {
+    public OrderProductAdapter(Context context, List<Product> productList) {
         this.context = context;
-        this.orderList = orderList;
+        this.productList = productList;
     }
 
     @Override
-    public OrderViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_order_history, parent, false);
-        return new OrderViewHolder(view);
+    public OrderProductViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.item_order_product, parent, false);
+        return new OrderProductViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(OrderViewHolder holder, int position) {
-        Order order = orderList.get(position);
+    public void onBindViewHolder(OrderProductViewHolder holder, int position) {
+        Product product = productList.get(position);
 
-        // Информация о заказе
-        holder.orderInfo.setText("Информация о заказе:");
-        holder.orderStatus.setText("Статус заказа: " + order.getStatus());
-        holder.orderAmount.setText("Сумма заказа: " + order.getTotalAmount() + "₽");
+        holder.productName.setText(product.getName());
+        holder.productPrice.setText(product.getPrice());
 
-        // Инициализируем OrderProductAdapter для отображения продуктов в заказе
-        OrderProductAdapter productAdapter = new OrderProductAdapter(context, order.getProductList());
-        holder.productsRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        holder.productsRecyclerView.setAdapter(productAdapter);
+        // Загружаем изображение с помощью Glide
+        Glide.with(context)
+                .load(product.getImageUrl())
+                .into(holder.productImage);
     }
 
     @Override
     public int getItemCount() {
-        return orderList.size();
+        return productList.size();
     }
 
-    public static class OrderViewHolder extends RecyclerView.ViewHolder {
+    public static class OrderProductViewHolder extends RecyclerView.ViewHolder {
 
-        TextView orderInfo, orderStatus, orderAmount;
-        RecyclerView productsRecyclerView;
+        ImageView productImage;
+        TextView productName;
+        TextView productPrice;
 
-        public OrderViewHolder(View itemView) {
+        public OrderProductViewHolder(View itemView) {
             super(itemView);
-            orderInfo = itemView.findViewById(R.id.orderInfo);
-            orderStatus = itemView.findViewById(R.id.orderStatus);
-            orderAmount = itemView.findViewById(R.id.orderAmount);
-            productsRecyclerView = itemView.findViewById(R.id.productsRecyclerView);
+            productImage = itemView.findViewById(R.id.product_image);
+            productName = itemView.findViewById(R.id.product_name);
+            productPrice = itemView.findViewById(R.id.product_price);
         }
     }
 }
